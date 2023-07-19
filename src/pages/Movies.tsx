@@ -1,3 +1,6 @@
+import Row from "../ui/Row";
+import Heading from "../ui/Heading";
+import { MoviesCardContainer } from "../features/MoviesCardContainer";
 import { getMovies } from "../api/apiMovies";
 import { useQuery } from "@tanstack/react-query";
 
@@ -8,16 +11,16 @@ export default function Movies() {
   });
 
   if (isLoading) return <p>Loading...</p>;
-
   return (
-    <div className="">
-      <div className="grid grid-cols-3 gap-4">
-        {movies?.data.nextRelease.map((movie: any) => (
-          <div>
-            <img src={movie.poster} alt="" />
-          </div>
-        ))}
-      </div>
-    </div>
+    <>
+      <Row type="horizontal">
+        <Heading as="h2">On Cinema now</Heading>
+      </Row>
+      <MoviesCardContainer movies={movies?.data.showcasing} />
+      <Row type="horizontal">
+        <Heading as="h2">Next Releases</Heading>
+      </Row>
+      <MoviesCardContainer movies={movies?.data.nextRelease} />
+    </>
   );
 }

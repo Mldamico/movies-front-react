@@ -1,3 +1,9 @@
+import { ActorCardContainer } from "../features/ActorCardContainer";
+
 export const Actors = () => {
-  return <div>Actors</div>;
+  return (
+    <div>
+      <ActorCardContainer />
+    </div>
+  );
 };
