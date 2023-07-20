@@ -4,7 +4,7 @@ import { Movie } from "../types/Movie";
 
 const CardContainerStyles = styled.div`
   display: grid;
-  gap: 3rem;
+  gap: 5rem;
   grid-template-columns: repeat(1, 1fr);
 
   @media screen and (min-width: 700px) {

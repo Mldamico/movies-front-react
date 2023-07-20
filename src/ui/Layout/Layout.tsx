@@ -6,8 +6,12 @@ import { styled } from "styled-components";
 const StyledLayout = styled.div`
   display: grid;
   height: 100vh;
-  grid-template-columns: 25rem 1fr;
+  grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
+
+  @media screen and (min-width: 700px) {
+    grid-template-columns: 25rem 1fr;
+  }
 `;
 
 const StyledMain = styled.main`
