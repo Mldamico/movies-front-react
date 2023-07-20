@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { MoviesCard } from "./MoviesCard";
-import { Movie } from "../types/Movie";
+import { Movie } from "../../types/Movie";
 
 const CardContainerStyles = styled.div`
   display: grid;

@@ -1,26 +1,23 @@
 import Row from "../ui/Row";
 import Heading from "../ui/Heading";
-import { MoviesCardContainer } from "../features/MoviesCardContainer";
-import { getMovies } from "../api/apiMovies";
-import { useQuery } from "@tanstack/react-query";
+import { MoviesCardContainer } from "../features/movies/MoviesCardContainer";
+import { LoadingSpinner } from "../ui/LoadingSpinner";
+import { useGetMovies } from "../features/movies/useGetMovies";
 
 export default function Movies() {
-  const { data: movies, isLoading } = useQuery({
-    queryKey: ["movies"],
-    queryFn: getMovies,
-  });
+  const { isLoading, movies } = useGetMovies();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading || !movies) return <LoadingSpinner />;
   return (
     <>
       <Row type="horizontal">
         <Heading as="h2">On Cinema now</Heading>
       </Row>
-      <MoviesCardContainer movies={movies?.data.showcasing} />
+      <MoviesCardContainer movies={movies.data.showcasing} />
       <Row type="horizontal">
         <Heading as="h2">Next Releases</Heading>
       </Row>
-      <MoviesCardContainer movies={movies?.data.nextRelease} />
+      <MoviesCardContainer movies={movies.data.nextRelease} />
     </>
   );
 }
