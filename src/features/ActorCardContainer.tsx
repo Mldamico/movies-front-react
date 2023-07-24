@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { styled } from "styled-components";
-
 import { getActors } from "../api/ApiActors";
 
 const CardContainerStyles = styled.div`

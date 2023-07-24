@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Actors } from "./pages/Actors";
 import GlobalStyles from "./styles/GlobalStyles";
+import { Genres } from "./pages/Genres";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +28,7 @@ export const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/movies" element={<Movies />} />
             <Route path="/actors" element={<Actors />} />
+            <Route path="/genres" element={<Genres />} />
           </Route>
         </Routes>
       </BrowserRouter>
