@@ -1,17 +1,9 @@
 import { styled } from "styled-components";
-
 import { HiPencil, HiTrash } from "react-icons/hi2";
-const TableRow = styled.div`
-  display: flex;
-
-  column-gap: 2.4rem;
-  align-items: center;
-  padding: 1.4rem 2.4rem;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-`;
+import Modal from "../../ui/Modal";
+import { Menus } from "../../ui/Menus";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import { Table } from "../../ui/Table";
 
 const GenreStyleText = styled.div`
   font-size: 1.6rem;
@@ -19,10 +11,6 @@ const GenreStyleText = styled.div`
   color: var(--color-grey-600);
   font-family: "Sono";
   flex-grow: 2;
-`;
-
-const GenreButton = styled.button`
-  padding: 1rem;
 `;
 
 export interface Genre {
@@ -36,18 +24,36 @@ interface GenresRowProps {
 }
 
 export const GenresRow = ({ position, genre }: GenresRowProps) => {
+  console.log(genre);
   return (
     <>
-      <TableRow role="row">
+      <Table.Row>
         <p>{position}</p>
         <GenreStyleText>{genre.name}</GenreStyleText>
-        <GenreButton>
-          <HiPencil />
-        </GenreButton>
-        <GenreButton>
-          <HiTrash />
-        </GenreButton>
-      </TableRow>
+        <div>
+          <Modal>
+            <Menus.Menu>
+              <Menus.Toggle id={genre.id} />
+              <Menus.List id={genre.id}>
+                <Modal.Open opens="edit">
+                  <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+                </Modal.Open>
+                <Modal.Open opens="delete">
+                  <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+                </Modal.Open>
+              </Menus.List>
+
+              <Modal.Window name="delete">
+                <ConfirmDelete
+                  resourceName="Genres"
+                  disabled={false}
+                  onConfirm={() => {}}
+                />
+              </Modal.Window>
+            </Menus.Menu>
+          </Modal>
+        </div>
+      </Table.Row>
     </>
   );
 };
