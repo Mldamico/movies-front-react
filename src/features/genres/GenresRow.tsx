@@ -4,7 +4,7 @@ import Modal from "../../ui/Modal";
 import { Menus } from "../../ui/Menus";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { Table } from "../../ui/Table";
-import { useDeleteGenre } from "./useDeleteGenres";
+import { useDeleteGenre } from "./useDeleteGenre";
 import { LoadingSpinner } from "../../ui/LoadingSpinner";
 
 const GenreStyleText = styled.div`

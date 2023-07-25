@@ -4,4 +4,6 @@ const getGenres = () => axios.get("/genres");
 
 const deleteGenreById = (id: number) => axios.delete(`/genres/${id}`);
 
-export { getGenres, deleteGenreById };
+const createGenre = (name: string) => axios.post("genres", { name });
+
+export { getGenres, deleteGenreById, createGenre };
