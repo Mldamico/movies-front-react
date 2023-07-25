@@ -4,6 +4,8 @@ import Modal from "../../ui/Modal";
 import { Menus } from "../../ui/Menus";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { Table } from "../../ui/Table";
+import { useDeleteGenre } from "./useDeleteGenres";
+import { LoadingSpinner } from "../../ui/LoadingSpinner";
 
 const GenreStyleText = styled.div`
   font-size: 1.6rem;
@@ -24,7 +26,10 @@ interface GenresRowProps {
 }
 
 export const GenresRow = ({ position, genre }: GenresRowProps) => {
-  console.log(genre);
+  const { isDeleting, deleteGenre } = useDeleteGenre();
+
+  if (isDeleting) return <LoadingSpinner />;
+
   return (
     <>
       <Table.Row>
@@ -46,8 +51,8 @@ export const GenresRow = ({ position, genre }: GenresRowProps) => {
               <Modal.Window name="delete">
                 <ConfirmDelete
                   resourceName="Genres"
-                  disabled={false}
-                  onConfirm={() => {}}
+                  disabled={isDeleting}
+                  onConfirm={() => deleteGenre(genre.id)}
                 />
               </Modal.Window>
             </Menus.Menu>

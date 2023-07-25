@@ -2,4 +2,6 @@ import axios from "./axios";
 
 const getGenres = () => axios.get("/genres");
 
-export { getGenres };
+const deleteGenreById = (id: number) => axios.delete(`/genres/${id}`);
+
+export { getGenres, deleteGenreById };
