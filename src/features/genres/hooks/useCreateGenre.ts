@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { toast } from "react-hot-toast";
-import { createGenre as createGenreApi } from "../../api/apiGenres";
+import { createGenre as createGenreApi } from "../../../api/apiGenres";
 
 export const useCreateGenre = () => {
   const queryClient = useQueryClient();

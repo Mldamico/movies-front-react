@@ -4,8 +4,9 @@ import Modal from "../../ui/Modal";
 import { Menus } from "../../ui/Menus";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { Table } from "../../ui/Table";
-import { useDeleteGenre } from "./useDeleteGenre";
+import { useDeleteGenre } from "./hooks/useDeleteGenre";
 import { LoadingSpinner } from "../../ui/LoadingSpinner";
+import { CreateGenreForm } from "./CreateGenreForm";
 
 const GenreStyleText = styled.div`
   font-size: 1.6rem;
@@ -47,6 +48,10 @@ export const GenresRow = ({ position, genre }: GenresRowProps) => {
                   <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
                 </Modal.Open>
               </Menus.List>
+
+              <Modal.Window name="edit">
+                <CreateGenreForm genreToEdit={genre} />
+              </Modal.Window>
 
               <Modal.Window name="delete">
                 <ConfirmDelete

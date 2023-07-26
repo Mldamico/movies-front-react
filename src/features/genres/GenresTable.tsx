@@ -1,4 +1,4 @@
-import { useGetGenres } from "./useGetGenres";
+import { useGetGenres } from "./hooks/useGetGenres";
 import { Genre, GenresRow } from "./GenresRow";
 import { LoadingSpinner } from "../../ui/LoadingSpinner";
 import { Table } from "../../ui/Table";
