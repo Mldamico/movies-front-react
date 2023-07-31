@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import Form from "../../ui/Form/Form";
 import { FormRow, FormRowStyles } from "../../ui/Form/FormRow";
 import Input from "../../ui/Form/Input";
@@ -7,7 +7,9 @@ import { useEditMovie } from "./useEditMovie";
 import { Movie } from "../../types/Movie";
 import { useCreateMovie } from "./useCreateMovie";
 import FileInput from "../../ui/Form/FileInput";
+import DatePicker from "react-datepicker";
 
+import "react-datepicker/dist/react-datepicker.css";
 type FormValues = {
   title: string;
   poster: string;
@@ -28,16 +30,17 @@ export const CreateMovieForm = ({
   const { isCreating, createMovie } = useCreateMovie();
   const { isEditing, editMovie } = useEditMovie();
   const isLoading = isCreating || isEditing;
-  const { register, handleSubmit, reset, formState } = useForm<FormValues>({
-    defaultValues: isEditSession
-      ? {
-          title: movieToEdit?.title,
-          poster: movieToEdit?.poster,
-          showcasing: movieToEdit?.showcasing,
-          datePremiere: movieToEdit?.datePremiere,
-        }
-      : {},
-  });
+  const { register, handleSubmit, reset, formState, control } =
+    useForm<FormValues>({
+      defaultValues: isEditSession
+        ? {
+            title: movieToEdit?.title,
+            poster: movieToEdit?.poster,
+            showcasing: movieToEdit?.showcasing,
+            datePremiere: movieToEdit?.datePremiere,
+          }
+        : {},
+    });
   const { errors } = formState;
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
@@ -73,6 +76,23 @@ export const CreateMovieForm = ({
             required: "Title field is required",
             min: 5,
           })}
+        />
+      </FormRow>
+      <FormRow
+        id="datePremiere"
+        label="Release Date"
+        error={errors?.datePremiere?.message}
+      >
+        <Controller
+          control={control}
+          name="datePremiere"
+          render={({ field }) => (
+            <DatePicker
+              placeholderText="Select date"
+              onChange={(date) => field.onChange(date)}
+              selected={field.value}
+            />
+          )}
         />
       </FormRow>
       <FormRow id="image" label="Movie Photo" error={errors?.poster?.message}>

@@ -20,7 +20,7 @@ export const FormRowStyles = styled.div`
     border-bottom: 1px solid var(--color-grey-100);
   }
 
-  &:has(button) {
+  &:has(button):last-child {
     display: flex;
     justify-content: flex-end;
     gap: 1.2rem;
