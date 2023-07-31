@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { editGenteById } from "../../../api/apiGenres";
+import { editGenreById } from "../../../api/apiGenres";
 
 export const useEditGenre = () => {
   const queryClient = useQueryClient();
   const { mutate: editGenre, isLoading: isEditing } = useMutation({
     mutationFn: ({ id, name }: { id: number; name: string }) =>
-      editGenteById(id, name),
+      editGenreById(id, name),
     onSuccess: async () => {
       toast.success("Genres successfully edited");
       await queryClient.invalidateQueries({ queryKey: ["genres"] });

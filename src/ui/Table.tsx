@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import styled from "styled-components";
 import { Genre } from "../features/genres/GenresRow";
+import { Movie } from "../types/Movie";
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -110,7 +111,7 @@ function Row({ children }: Props) {
 }
 
 interface BodyProps {
-  data: Genre[];
+  data: Genre[] | Movie[];
   render: (el: any) => React.ReactNode;
 }
 

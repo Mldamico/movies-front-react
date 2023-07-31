@@ -5,10 +5,10 @@ import { CreateGenreForm } from "./CreateGenreForm";
 export const AddGenre = () => {
   return (
     <Modal>
-      <Modal.Open opens="cabin-form">
+      <Modal.Open opens="genre-form">
         <Button>Add new genre</Button>
       </Modal.Open>
-      <Modal.Window name="cabin-form">
+      <Modal.Window name="genre-form">
         <CreateGenreForm />
       </Modal.Window>
     </Modal>

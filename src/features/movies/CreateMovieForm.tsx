@@ -1,33 +1,40 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Genre } from "./GenresRow";
-import { useCreateGenre } from "./hooks/useCreateGenre";
 import Form from "../../ui/Form/Form";
 import { FormRow, FormRowStyles } from "../../ui/Form/FormRow";
 import Input from "../../ui/Form/Input";
 import Button from "../../ui/Button";
-import { useEditGenre } from "./hooks/useEditGenre";
+import { useEditMovie } from "./useEditMovie";
+import { Movie } from "../../types/Movie";
+import { useCreateMovie } from "./useCreateMovie";
+import FileInput from "../../ui/Form/FileInput";
 
 type FormValues = {
-  name: string;
+  title: string;
+  poster: string;
+  showcasing: boolean;
+  datePremiere: Date;
 };
 
-interface ICreateGenreFormProp {
-  genreToEdit?: Genre;
+interface ICreateMovieFormProp {
+  movieToEdit?: Movie;
   onCloseModal?: () => void;
 }
 
-export const CreateGenreForm = ({
-  genreToEdit,
+export const CreateMovieForm = ({
+  movieToEdit,
   onCloseModal,
-}: ICreateGenreFormProp) => {
-  const isEditSession = Boolean(genreToEdit?.id);
-  const { isCreating, createGenre } = useCreateGenre();
-  const { isEditing, editGenre } = useEditGenre();
+}: ICreateMovieFormProp) => {
+  const isEditSession = Boolean(movieToEdit?.id);
+  const { isCreating, createMovie } = useCreateMovie();
+  const { isEditing, editMovie } = useEditMovie();
   const isLoading = isCreating || isEditing;
   const { register, handleSubmit, reset, formState } = useForm<FormValues>({
     defaultValues: isEditSession
       ? {
-          name: genreToEdit?.name,
+          title: movieToEdit?.title,
+          poster: movieToEdit?.poster,
+          showcasing: movieToEdit?.showcasing,
+          datePremiere: movieToEdit?.datePremiere,
         }
       : {},
   });
@@ -35,14 +42,14 @@ export const CreateGenreForm = ({
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (!isEditSession) {
-      createGenre(data.name, {
+      createMovie(data, {
         onSuccess: () => {
           onCloseModal?.();
         },
       });
     } else {
-      editGenre(
-        { name: data.name, id: genreToEdit?.id! },
+      editMovie(
+        { id: movieToEdit!.id, movie: data },
         {
           onSuccess: () => {
             reset();
@@ -57,17 +64,27 @@ export const CreateGenreForm = ({
       onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? "modal" : "regular"}
     >
-      <FormRow id="name" label="Cabin name" error={errors?.name?.message}>
+      <FormRow id="name" label="Movie name" error={errors?.title?.message}>
         <Input
           type="text"
           id="name"
           disabled={isLoading}
-          {...register("name", {
-            required: "Name field is required",
-            min: 3,
+          {...register("title", {
+            required: "Title field is required",
+            min: 5,
           })}
         />
       </FormRow>
+      <FormRow id="image" label="Movie Photo" error={errors?.poster?.message}>
+        <FileInput
+          id="image"
+          accept="image/*"
+          {...register("poster", {
+            required: isEditSession ? false : "Image field is required",
+          })}
+        />
+      </FormRow>
+
       <FormRowStyles>
         <Button
           variation="secondary"
@@ -77,7 +94,7 @@ export const CreateGenreForm = ({
           Cancel
         </Button>
         <Button disabled={isLoading}>
-          {isEditSession ? "Edit Genre" : "Create New Genre"}
+          {isEditSession ? "Edit Movie" : "Create New Movie"}
         </Button>
       </FormRowStyles>
     </Form>

@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 import { MoviesCard } from "./MoviesCard";
 import { Movie } from "../../types/Movie";
+import Button from "../../ui/Button";
+import { Link } from "react-router-dom";
 
 const CardContainerStyles = styled.div`
   display: grid;
@@ -16,16 +18,26 @@ const CardContainerStyles = styled.div`
   }
 `;
 
+type MovieType = "next" | "now";
+
 interface MoviesCardProps {
   movies: Movie[];
+  type: MovieType;
 }
 
-export const MoviesCardContainer = ({ movies }: MoviesCardProps) => {
+export const MoviesCardContainer = ({ movies, type }: MoviesCardProps) => {
   return (
-    <CardContainerStyles>
-      {movies?.map((movie: Movie) => (
-        <MoviesCard key={movie.id} movie={movie} />
-      ))}
-    </CardContainerStyles>
+    <>
+      <CardContainerStyles>
+        {movies?.map((movie: Movie) => (
+          <MoviesCard key={movie.id} movie={movie} />
+        ))}
+      </CardContainerStyles>
+      <Link
+        to={type === "next" ? `/movies/next-releases` : `/movies/on-cinema-now`}
+      >
+        <Button>{type === "next" ? "Next Releases" : "Showcasing Now"}</Button>
+      </Link>
+    </>
   );
 };

@@ -7,6 +7,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Actors } from "./pages/Actors";
 import GlobalStyles from "./styles/GlobalStyles";
 import { Genres } from "./pages/Genres";
+import { NextReleases } from "./pages/NextReleases";
+import { CinemaNow } from "./pages/CinemaNow";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +29,8 @@ export const App = () => {
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/movies" element={<Movies />} />
+            <Route path="/movies/next-releases" element={<NextReleases />} />
+            <Route path="/movies/on-cinema-now" element={<CinemaNow />} />
             <Route path="/actors" element={<Actors />} />
             <Route path="/genres" element={<Genres />} />
           </Route>

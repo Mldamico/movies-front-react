@@ -13,11 +13,11 @@ export default function Movies() {
       <Row type="horizontal">
         <Heading as="h2">On Cinema now</Heading>
       </Row>
-      <MoviesCardContainer movies={movies.data.showcasing} />
+      <MoviesCardContainer type="now" movies={movies.data.showcasing} />
       <Row type="horizontal">
         <Heading as="h2">Next Releases</Heading>
       </Row>
-      <MoviesCardContainer movies={movies.data.nextRelease} />
+      <MoviesCardContainer type="next" movies={movies.data.nextRelease} />
     </>
   );
 }
