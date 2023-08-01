@@ -10,6 +10,8 @@ import FileInput from "../../ui/Form/FileInput";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
+import { useLocation } from "react-router-dom";
 type FormValues = {
   title: string;
   poster: string;
@@ -26,6 +28,10 @@ export const CreateMovieForm = ({
   movieToEdit,
   onCloseModal,
 }: ICreateMovieFormProp) => {
+  const { pathname } = useLocation();
+  const pathNameArr = pathname.split("/");
+  const filterOption = pathNameArr[pathNameArr.length - 1];
+
   const isEditSession = Boolean(movieToEdit?.id);
   const { isCreating, createMovie } = useCreateMovie();
   const { isEditing, editMovie } = useEditMovie();
@@ -37,29 +43,41 @@ export const CreateMovieForm = ({
             title: movieToEdit?.title,
             poster: movieToEdit?.poster,
             showcasing: movieToEdit?.showcasing,
-            datePremiere: movieToEdit?.datePremiere,
+            datePremiere: new Date(movieToEdit!.datePremiere),
           }
         : {},
     });
   const { errors } = formState;
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const poster =
+      typeof data.poster === "string" ? data.poster : data.poster![0];
+    data.showcasing = filterOption === "on-cinema-now";
+    const dateToSave = data.datePremiere.toISOString().split("T")[0];
+
+    var bodyFormData = new FormData();
+    bodyFormData.append("title", data.title);
+    bodyFormData.append("datePremiere", dateToSave);
+    bodyFormData.append("poster", poster);
+    bodyFormData.append("showcasing", data.showcasing.toString());
+
+    console.log(data);
     if (!isEditSession) {
-      createMovie(data, {
+      createMovie(bodyFormData, {
         onSuccess: () => {
           onCloseModal?.();
         },
       });
     } else {
-      editMovie(
-        { id: movieToEdit!.id, movie: data },
-        {
-          onSuccess: () => {
-            reset();
-            onCloseModal?.();
-          },
-        }
-      );
+      // editMovie(
+      //   { id: movieToEdit!.id, movie: data },
+      //   {
+      //     onSuccess: () => {
+      //       reset();
+      //       onCloseModal?.();
+      //     },
+      //   }
+      // );
     }
   };
   return (

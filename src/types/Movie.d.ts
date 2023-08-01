@@ -2,7 +2,7 @@ export interface Movie {
   id: number;
   title: string;
   showcasing: boolean;
-  datePremiere: Date;
+  datePremiere: string;
   poster: string;
 }
 
@@ -15,5 +15,5 @@ interface CreateMovieProps {
   title: string;
   poster: string;
   showcasing: boolean;
-  datePremiere: Date;
+  datePremiere: string;
 }

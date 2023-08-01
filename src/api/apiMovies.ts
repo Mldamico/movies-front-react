@@ -11,9 +11,7 @@ const deleteMovieById = (id: number) => axios.delete(`/movies/${id}`);
 const editMovieById = (id: number, movie: Partial<CreateMovieProps>) =>
   axios.put(`/movies/${id}`, { movie });
 
-const createMovie = (movie: CreateMovieProps) =>
-  axios.post("movies", { movie });
-
+const createMovie = (movie: any) => axios.post("/movies", movie);
 export {
   getMovies,
   getMoviesByFilter,

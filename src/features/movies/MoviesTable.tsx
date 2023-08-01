@@ -8,10 +8,9 @@ import { LoadingSpinner } from "../../ui/LoadingSpinner";
 
 export const MoviesTable = () => {
   const { pathname } = useLocation();
-  console.log(pathname.split("/"));
   const pathNameArr = pathname.split("/");
   const filterOption = pathNameArr[pathNameArr.length - 1];
-  console.log(filterOption);
+
   const filter =
     filterOption === "on-cinema-now" ? "showcasing" : "nextRelease";
   const params = {
