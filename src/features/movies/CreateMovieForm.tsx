@@ -8,9 +8,8 @@ import { Movie } from "../../types/Movie";
 import { useCreateMovie } from "./useCreateMovie";
 import FileInput from "../../ui/Form/FileInput";
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
+
 import { useLocation } from "react-router-dom";
 type FormValues = {
   title: string;
@@ -69,15 +68,15 @@ export const CreateMovieForm = ({
         },
       });
     } else {
-      // editMovie(
-      //   { id: movieToEdit!.id, movie: data },
-      //   {
-      //     onSuccess: () => {
-      //       reset();
-      //       onCloseModal?.();
-      //     },
-      //   }
-      // );
+      editMovie(
+        { id: movieToEdit!.id, movie: bodyFormData },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
     }
   };
   return (

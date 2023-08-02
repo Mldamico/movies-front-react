@@ -7,6 +7,7 @@ import { Menus } from "../../ui/Menus";
 import { HiPencil, HiTrash } from "react-icons/hi2";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useDeleteMovie } from "./useDeleteMovie";
+import { CreateMovieForm } from "./CreateMovieForm";
 
 const Img = styled.img`
   display: block;
@@ -26,9 +27,8 @@ interface IMoviesRowProps {
   movie: Movie;
 }
 
-export const MoviesRow = ({
-  movie: { id, title, datePremiere, poster },
-}: IMoviesRowProps) => {
+export const MoviesRow = ({ movie }: IMoviesRowProps) => {
+  const { id, title, datePremiere, poster } = movie;
   const { deleteMovie, isDeleting } = useDeleteMovie();
   return (
     <Table.Row>
@@ -48,9 +48,9 @@ export const MoviesRow = ({
               </Modal.Open>
             </Menus.List>
 
-            {/* <Modal.Window name="edit">
+            <Modal.Window name="edit">
               <CreateMovieForm movieToEdit={movie} />
-            </Modal.Window> */}
+            </Modal.Window>
 
             <Modal.Window name="delete">
               <ConfirmDelete
