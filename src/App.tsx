@@ -9,6 +9,8 @@ import GlobalStyles from "./styles/GlobalStyles";
 import { Genres } from "./pages/Genres";
 import { NextReleases } from "./pages/NextReleases";
 import { CinemaNow } from "./pages/CinemaNow";
+import Login from "./pages/Login";
+import { ProtectedRoute } from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,7 +27,13 @@ export const App = () => {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <Layout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/movies" element={<Movies />} />
@@ -34,6 +42,7 @@ export const App = () => {
             <Route path="/actors" element={<Actors />} />
             <Route path="/genres" element={<Genres />} />
           </Route>
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
